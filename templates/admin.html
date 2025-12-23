@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel de Administración</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        body { font-family: Arial, sans-serif; background: #f4f4f4; }
+        h1 { background: #2c3e50; color: white; padding: 10px; }
+        .container { margin: 20px; }
+        .btn { padding: 8px 12px; background: #3498db; color: white; border: none; cursor: pointer; }
+        .btn:hover { background: #2980b9; }
+    </style>
+</head>
+<body>
+    <h1>Panel de Administración - GREHU</h1>
+    <div class="container">
+        <p>Bienvenido, {{ usuario.nombre }} {{ usuario.apellidos }} (Rol: {{ usuario.rol }})</p>
+
+        <h2>Acciones disponibles</h2>
+        <form method="post" action="/actualizar_estado">
+            <label for="id">ID Usuario:</label>
+            <input type="number" name="id" required>
+            <label for="conectado">Conectado:</label>
+            <select name="conectado">
+                <option value="true">Sí</option>
+                <option value="false">No</option>
+            </select>
+            <button type="submit" class="btn">Actualizar estado</button>
+        </form>
+
+        <p><a href="/auditoria_html">Ver auditoría de acciones</a></p>
+    </div>
+</body>
+</html>

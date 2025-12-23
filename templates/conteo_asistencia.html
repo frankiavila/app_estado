@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Otra Página{% endblock %}
+
+{% block content %}
+<h2>Bienvenido a otra sección</h2>
+<p>Este es un ejemplo de cómo puedes reutilizar el mismo estilo y menú.</p>
+{% endblock %}
+
+<h1>Reporte de Asistencia - {{ fecha }}</h1>
+<link rel="stylesheet" href="/static/style.css">
+<p>Total presentes: {{ conteo }}</p>
+
+<table border="1" cellpadding="5">
+<tr>
+  <th>Código</th><th>Tarjeta</th><th>Nombre</th><th>Apellidos</th>
+  <th>Área</th><th>Código Área</th><th>Entrada</th><th>Fecha</th>
+</tr>
+{% for r in registros %}
+<tr>
+  <td>{{ r.codigo }}</td>
+  <td>{{ r.num_tarjeta }}</td>
+  <td>{{ r.nombre }}</td>
+  <td>{{ r.apellidos }}</td>
+  <td>{{ r.area_nombre }}</td>
+  <td>{{ r.area_codigo }}</td>
+  <td>{{ r.marca_entrada }}</td>
+  <td>{{ r.fecha }}</td>
+</tr>
+{% endfor %}
+</table>

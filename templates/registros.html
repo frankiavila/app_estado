@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gestión de Registros</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>Tabla de Registros</h1>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Estado</th>
+            <th>Acción</th>
+        </tr>
+        {% for r in registros %}
+        <tr>
+            <td>{{ r.id }}</td>
+            <td>{{ "Activo" if r.estado else "Inactivo" }}</td>
+            <td>
+                {% if r.estado %}
+                <form method="post" action="/desactivar/">
+                    <input type="hidden" name="registro_id" value="{{ r.id }}">
+                    <button type="submit">Desactivar</button>
+                </form>
+                {% else %}
+                -
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

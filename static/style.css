@@ -1,0 +1,133 @@
+/* 🌞 Estilo claro (por defecto) */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f9;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+header {
+    background-color: #003366;
+    color: white;
+    padding: 15px;
+    text-align: center;
+}
+
+h1, h2 {
+    color: #003366;
+}
+
+/* --- Navegación --- */
+nav {
+    margin-top: 10px;
+}
+
+nav a {
+    margin: 0 10px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* --- Tablas --- */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    background-color: white;
+}
+
+table th {
+    background-color: #003366;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+}
+
+table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* --- Botones de acción --- */
+a.button, button {
+    background-color: #0066cc;
+    color: white;
+    padding: 8px 12px;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    display: inline-block;
+}
+
+a.button:hover, button:hover {
+    background-color: #004c99;
+}
+
+/* 🌙 Modo oscuro */
+body.dark {
+    background-color: #1e1e1e;
+    color: #ddd;
+}
+
+body.dark header, body.dark footer {
+    background-color: #222;
+    color: #ddd;
+}
+
+body.dark nav a {
+    color: #ddd;
+}
+
+body.dark table {
+    background-color: #2a2a2a;
+    color: #ddd;
+}
+
+body.dark table th {
+    background-color: #333;
+    color: #eee;
+}
+
+body.dark table td {
+    border: 1px solid #555;
+    background-color: #2a2a2a;
+    color: #ddd;
+}
+
+body.dark table tr:nth-child(even) {
+    background-color: #333;
+}
+
+body.dark a.button, body.dark button {
+    background-color: #444;
+    color: #eee;
+}
+
+body.dark a.button:hover, body.dark button:hover {
+    background-color: #666;
+}
+
+/* --- Botón de modo oscuro --- */
+.toggle-dark {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: #fff;
+    color: #004080;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}

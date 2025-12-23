@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Gestión de Usuarios{% endblock %}
+
+{% block content %}
+<h2>Gestión de Usuarios</h2>
+<table>
+    <tr>
+        <th>Nombre</th>
+        <th>Apellidos</th>
+        <th>Conectado</th>
+        <th>Acción</th>
+    </tr>
+    {% for id, nombre, apellidos, conectado in usuarios %}
+    <tr>
+        <td>{{ nombre }}</td>
+        <td>{{ apellidos }}</td>
+        <td>
+            {% if conectado %}
+                ✅ Conectado
+            {% else %}
+                ❌ Desconectado
+            {% endif %}
+        </td>
+        <td>
+            {% if conectado %}
+                <a href="/usuarios/desconectar/{{ id }}" class="button">Desconectar</a>
+            {% else %}
+                -
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

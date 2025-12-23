@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Otra Página{% endblock %}
+
+{% block content %}
+<h2>Bienvenido a otra sección</h2>
+<p>Este es un ejemplo de cómo puedes reutilizar el mismo estilo y menú.</p>
+{% endblock %}
+
+<h1>Historial de Auditoría</h1>
+<link rel="stylesheet" href="/static/style.css">
+<table border="1">
+  <tr><th>ID</th><th>Usuario</th><th>Acción</th><th>Fecha</th></tr>
+  {% for a in registros %}
+  <tr>
+    <td>{{ a.id }}</td>
+    <td>{{ a.usuario_id }}</td>
+    <td>{{ a.accion }}</td>
+    <td>{{ a.fecha }}</td>
+  </tr>
+  {% endfor %}
+</table>

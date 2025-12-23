@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}Reporte de Asistencia{% endblock %}
+
+{% block content %}
+<h2>Reporte de Asistencia - {{ fecha }}</h2>
+<p>Total presentes: {{ total }}</p>
+
+<!-- Formulario para seleccionar fecha y área -->
+<form method="get" action="/reporte_asistencia">
+    <label for="fecha">Selecciona la fecha:</label>
+    <input type="date" id="fecha" name="fecha" value="{{ fecha }}">
+
+    <label for="area">Selecciona el área:</label>
+    <select id="area" name="area">
+        <option value="">-- Todas las áreas --</option>
+        {% for nombre_area, datos in areas.items() %}
+            <option value="{{ nombre_area }}" {% if area == nombre_area %}selected{% endif %}>
+                {{ nombre_area }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">Ver reporte</button>
+</form>
+
+<!-- Botón para descargar PDF con los mismos filtros -->
+<form method="get" action="/reporte_asistencia_pdf" style="margin-top: 10px;">
+    <input type="hidden" name="fecha" value="{{ fecha }}">
+    <input type="hidden" id="pdf_area" name="area" value="{{ area }}">
+    <button type="submit">Descargar PDF</button>
+</form>
+
+<script>
+  // Sincroniza el selector de área con el hidden del PDF
+  document.getElementById("area").addEventListener("change", function() {
+    document.getElementById("pdf_area").value = this.value;
+  });
+</script>
+
+<hr>
+
+{% if area %}
+  <h3>Área seleccionada: {{ area }}</h3>
+{% endif %}
+
+{% for nombre_area, datos in areas.items() %}
+  <h3>{{ nombre_area }} ({{ datos.conteo }} presentes)</h3>
+  <table>
+    <tr>
+      <th>Código</th>
+      <th>Tarjeta</th>
+      <th>Nombre</th>
+      <th>Apellidos</th>
+      <th>Código Área</th>
+      <th>Entrada</th>
+      <th>Fecha</th>
+    </tr>
+    {% for r in datos.trabajadores %}
+    <tr>
+      <td>{{ r.codigo }}</td>
+      <td>{{ r.num_tarjeta }}</td>
+      <td>{{ r.nombre }}</td>
+      <td>{{ r.apellidos }}</td>
+      <td>{{ r.area_codigo }}</td>
+      <td>{{ r.marca_entrada }}</td>
+      <td>{{ r.fecha }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+{% endfor %}
+{% endblock %}
