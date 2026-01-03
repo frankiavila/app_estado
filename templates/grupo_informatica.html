@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Grupo Informatica</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>Miembros del grupo Informatica</h1>
+    <table>
+        <tr><th>Nombre</th><th>Usuario</th></tr>
+        {% for m in miembros %}
+            <tr><td>{{ m.cn }}</td><td>{{ m.username }}</td></tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

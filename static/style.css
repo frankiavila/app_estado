@@ -131,3 +131,95 @@ body.dark a.button:hover, body.dark button:hover {
     cursor: pointer;
     font-weight: bold;
 }
+/* --- Formulario de login --- */
+.login-form {
+    width: 300px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.login-form input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.login-form button {
+    background-color: #003366;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.login-form button:hover {
+    background-color: #0055aa;
+}
+
+/* --- Mensajes de error --- */
+.error {
+    color: red;
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* --- Tabla específica del login --- */
+.login-table-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    max-height: 400px;   /* límite de altura */
+    overflow-y: auto;    /* scroll interno si hay muchos usuarios */
+}
+
+.login-table {
+    width: 60% !important;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.login-table th {
+    background-color: #003366;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+.login-table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+}
+
+.login-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.password-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-container input {
+    width: 100%;
+    padding-right: 35px; /* espacio para el ojito */
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    font-size: 18px;
+}

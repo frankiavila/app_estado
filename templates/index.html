@@ -1,12 +1,15 @@
 {% extends "base.html" %}
 
-{% block title %}Sistema GREHU{% endblock %}
+{% block title %}Dashboard{% endblock %}
 
 {% block content %}
-<h2>Bienvenido al Sistema GREHU</h2>
-<ul>
-    <li><a href="/usuarios">Gestión de usuarios</a></li>
-    <li><a href="/reporte_asistencia?fecha=2025-12-08">Reporte de asistencia</a></li>
-    <li><a href="/conteo_asistencia?fecha=2025-12-08">Conteo de asistencia</a></li>
-</ul>
+    <h2>Bienvenido {{ username }}</h2>
+
+    <ul class="menu-list">
+        <li><a href="/reporte_asistencia" class="button">Reporte de asistencia</a></li>
+        <li><a href="/usuarios" class="button">Gestión de usuarios</a></li>
+        <li><a href="/conteo_asistencia?fecha={{ fecha|default("") }}" class="button">Conteo de asistencia</a></li>
+    </ul>
+
+    <a href="/logout" class="button">Cerrar sesión</a>
 {% endblock %}

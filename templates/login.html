@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}Portal de Login{% endblock %}
+
+{% block content %}
+    {% if username %}
+        <h2 class="welcome">Bienvenido, {{ username }}</h2>
+
+        {% if miembros %}
+            <h3 class="subtitle">Miembros del grupo Informatica</h3>
+            <div class="login-table-container">
+                <table class="login-table">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Usuario</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for m in miembros %}
+                            <tr>
+                                <td>{{ m.nombre }}</td>
+                                <td>{{ m.username }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="empty">No se encontraron miembros en el grupo Informatica.</p>
+        {% endif %}
+    {% else %}
+        <form method="post" action="/login" class="login-form">
+            <h2>Acceso al portal</h2>
+
+            {% if error %}
+                <p class="error">{{ error }}</p>
+            {% endif %}
+
+            <label for="username">Usuario:</label>
+            <input type="text" id="username" name="username" required>
+            
+            <label for="password">Contraseña:</label>
+            <div class="password-container">
+                <input type="password" id="password" name="password" required>
+                <i class="fa-solid fa-eye toggle-password" onclick="togglePassword()"></i>
+            </div>
+            
+            <button type="submit">Ingresar</button>
+        </form>
+    {% endif %}
+
+    <script>
+    function togglePassword() {
+        const input = document.getElementById("password");
+        const icon = document.querySelector(".toggle-password");
+        if (input.type === "password") {
+            input.type = "text";
+            icon.classList.remove("fa-eye");
+            icon.classList.add("fa-eye-slash");
+        } else {
+            input.type = "password";
+            icon.classList.remove("fa-eye-slash");
+            icon.classList.add("fa-eye");
+        }
+    }
+    </script>
+{% endblock %}
