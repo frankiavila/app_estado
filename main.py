@@ -26,6 +26,8 @@ from ldap_auth import authenticate_user, get_informatica_members
 
 app = FastAPI()
 
+app.add_middleware(SessionMiddleware, secret_key="super-secret-key")
+
 # Plantillas y estáticos
 templates = Jinja2Templates(directory="templates")
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -88,13 +90,33 @@ def actualizar_estado(id: int = Form(...), conectado: bool = Form(...)):
 # -------------------------------
 
 @app.get("/usuarios", response_class=HTMLResponse)
-
-@app.get("/usuarios", response_class=HTMLResponse)
 def usuarios_html(request: Request):
     db = SessionLocal1()
-    usuarios = db.query(Usuario.id, Usuario.nombre, Usuario.apellidos, Usuario.conectado).all()
+    usuarios = db.query(
+        Usuario.id,
+        Usuario.nombre,
+        Usuario.apellidos,
+        Usuario.conectado
+    ).all()
     db.close()
-    return templates.TemplateResponse("usuarios.html", {"request": request, "usuarios": usuarios})
+
+    # 👇 ARREGLO: obtenemos el username desde la sesión
+    # Esto es lo que permite que en base.html el bloque {% if username %} se cumpla
+    user = request.session.get("user")   # recupera el diccionario
+    username = user["username"] if user else None
+
+
+    # 👇 ARREGLO: añadimos "username" al contexto que se pasa al template
+    # Sin esto, la barra de navegación no aparece en usuarios.html
+    return templates.TemplateResponse(
+        "usuarios.html",
+        {
+            "request": request,
+            "username": username,   # <-- agregado
+            "usuarios": usuarios
+        }
+    )
+
 
 # -------------------------------
 # Reporte de asistencia por fecha
@@ -140,10 +162,22 @@ def reporte_asistencia(request: Request, fecha: str = None, area: str = None):
         areas[area_nombre]["conteo"] += 1
 
     total = sum(area["conteo"] for area in areas.values())
+    
+    user = request.session.get("user")   # recupera el diccionario
+    username = user["username"] if user else None
 
-    return templates.TemplateResponse("reporte_asistencia.html", {
-        "request": request, "areas": areas, "fecha": fecha, "total": total, "area": area
-    })
+        
+    return templates.TemplateResponse (
+                "reporte_asistencia.html",
+              {
+                     "request": request, 
+                     "username":username,
+                     "areas": areas, 
+                     "fecha": fecha, 
+                     "total": total, 
+                     "area": area
+             }
+    )
 
 # -------------------------------
 # Reporte PDF
@@ -255,11 +289,23 @@ def conteo_asistencia(request: Request, fecha: str = None):
     conteo = db.query(IncidenciasAsistencia).filter(IncidenciasAsistencia.fecha == fecha_obj).count()
     db.close()
 
+    # 👇 ARREGLO: obtenemos el user desde la sesión
+    # Esto es lo que permite que en base.html el bloque {% if username %} se cumpla
+    user = request.session.get("user")   # recupera el diccionario
+    username = user["username"] if user else None
+
+
+    # 👇 ARREGLO: añadimos "username" al contexto que se pasa al template
+    # Sin esto, la barra de navegación no aparece en conteo_asistencia.html
     return templates.TemplateResponse(
         "conteo_asistencia.html",
-        {"request": request, "conteo": conteo, "fecha": fecha_obj}
+        {
+            "request": request,
+            "username": username,   # <-- agregado
+            "conteo": conteo,
+            "fecha": fecha_obj
+        }
     )
-
 
 
 
